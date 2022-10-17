@@ -16,6 +16,7 @@ function Header() {
               src="https://res.cloudinary.com/dzj8cmkhl/image/upload/v1665859773/e-commerce-app/Apple_logo_black.svg_ie4qfy.png"
               layout="fill"
               objectFit="contain"
+              alt="equal-ecommerce"
             />
           </div>
           </Link>

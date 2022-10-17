@@ -3,11 +3,14 @@ import Head from 'next/head'
 import React from 'react'
 import Header from '../components/Header'
 import LandingPage from '../components/LandingPage'
-
 import { fetchCategories } from "../utils/fetchCategories";
+import { fetchProducts } from "../utils/fetchProducts";
 
-const Home = ({categories}) => {
+const Home = ({categories, products}) => {
   ///console.log(categories)
+  //console.log(products)
+
+  
   return (
     <div>
          <Head>
@@ -64,10 +67,12 @@ export default Home;
 
   export const getServerSideProps = async () => {
   //fetch the data from sanity
- const categories = await fetchCategories()
+ const categories = await fetchCategories();
+ const products = await fetchProducts();
     return {
       props: {
         categories,
+        products,
       },
     };
   };
