@@ -1,15 +1,23 @@
+
 import { Tab } from '@headlessui/react'
 import Head from 'next/head'
 import React from 'react'
 import Header from '../components/Header'
 import LandingPage from '../components/LandingPage'
+import Product from '../components/Product'
 import { fetchCategories } from "../utils/fetchCategories";
 import { fetchProducts } from "../utils/fetchProducts";
+
 
 const Home = ({categories, products}) => {
   ///console.log(categories)
   //console.log(products)
-
+ 
+  const showProducts = (category) => {
+    return products
+      .filter((product) => product.category._ref === categories[category]._id)
+      .map((product) => <Product product={product} key={product._id} />); // filter products by category
+  };
   
   return (
     <div>
@@ -49,10 +57,10 @@ const Home = ({categories, products}) => {
               ))}
             </Tab.List>
       <Tab.Panels className="mx-auto max-w-fit pt-10 pb-24 sm:px-4">
-        <Tab.Panel>Content 1</Tab.Panel>
-        <Tab.Panel>Content 2</Tab.Panel>
-        <Tab.Panel>Content 3</Tab.Panel>
-        <Tab.Panel>Content 4</Tab.Panel>
+      <Tab.Panel className="tabPanel">{showProducts(0)}</Tab.Panel>
+      <Tab.Panel className="tabPanel">{showProducts(1)}</Tab.Panel>
+      <Tab.Panel className="tabPanel">{showProducts(2)}</Tab.Panel>
+      <Tab.Panel className="tabPanel">{showProducts(3)}</Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
         </div>
