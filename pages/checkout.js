@@ -46,7 +46,7 @@ function Checkout() {
         )}
       </div>
       {items.length > 0 && (
-        <div>
+        <div className="mx-5 md:mx-8">
          {Object.entries(groupItemsCart).map(([key, items]) => (
            <CheckoutProduct key={key} items={items} id={key}/>
          ))}
