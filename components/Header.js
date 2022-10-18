@@ -4,9 +4,12 @@ import Link from "next/link";
 import React from "react";
 import {BiSearchAlt2, BiShoppingBag} from 'react-icons/bi';
 import {HiOutlineUser} from 'react-icons/hi'
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../redux/cartSlice";
 
 function Header() {
   let session = false;
+  const items = useSelector(selectCartItems);
   return (
     <header className="fixed top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-3">
       <div className="flex items-center justify-center md:w-1/5">
@@ -31,7 +34,9 @@ function Header() {
       <BiSearchAlt2 className='headerIcon'/>
       <Link href='/checkout'>
       <div className='relative cursor-pointer'>
-      <span className='absolute -right-1 -top-1 z-20 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[11px] text-white'>3</span>
+      <span className='absolute -right-1 -top-1 z-20 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[11px] text-white'>
+        {items.length}
+      </span>
       <BiShoppingBag className='headerIcon' />
       </div>
       </Link>

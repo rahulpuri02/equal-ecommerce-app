@@ -7,7 +7,7 @@ import LandingPage from '../components/LandingPage'
 import Product from '../components/Product'
 import { fetchCategories } from "../utils/fetchCategories";
 import { fetchProducts } from "../utils/fetchProducts";
-
+import Cart from '../components/Cart';
 
 const Home = ({categories, products}) => {
   ///console.log(categories)
@@ -27,13 +27,15 @@ const Home = ({categories, products}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header/> 
+
+      <Cart/>
       <main className='relative h-[200vh] bg-[#e7ecee]'>
         <LandingPage/>
       </main>
 
       {/*Landing Page-2 Starts From Here*/}
 
-      <section className='relative z-50 -mt-[100vh] min-h-screen bg-[#1b1b1b]'>
+      <section className='relative z-30 -mt-[100vh] min-h-screen bg-[#1b1b1b]'>
         <div className='space-y-10 py-16 '>
         <h1 className='text-center text-4xl font-medium tracking-wide text-white md:text-5xl'>
        New Promos
