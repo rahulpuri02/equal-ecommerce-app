@@ -11,7 +11,7 @@ function Header() {
   let session = false;
   const items = useSelector(selectCartItems);
   return (
-    <header className="fixed top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-3">
+    <header className="sticky top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-4">
       <div className="flex items-center justify-center md:w-1/5">
      <Link href="/">
           <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
@@ -34,9 +34,10 @@ function Header() {
       <BiSearchAlt2 className='headerIcon'/>
       <Link href='/checkout'>
       <div className='relative cursor-pointer'>
-      <span className='absolute -right-1 -top-1 z-20 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[11px] text-white'>
+        {items.length > 0 &&
+      (<span className='absolute -right-1 -top-1 z-20 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[11px] text-white'>
         {items.length}
-      </span>
+      </span>)}
       <BiShoppingBag className='headerIcon' />
       </div>
       </Link>

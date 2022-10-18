@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/Product.js", "pages/index.js"  ],
+, "components/Product.js", "pages/index.js", "pages/checkout.js"  ],
   "exclude": [
     "node_modules"
   ]
