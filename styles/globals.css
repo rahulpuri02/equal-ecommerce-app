@@ -29,7 +29,7 @@
     background-size: 100% 2px;
   }
   .shopping-bag {
-   @apply  flex h-16 w-16 flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 md:h-[70px] md:w-[70px]
+   @apply  flex h-16 w-16  flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 md:h-[70px] md:w-[70px]
   }
   .tabPanel {
     @apply grid grid-cols-1 gap-10 lg:grid-cols-2 gap-12 2xl:grid-cols-3
