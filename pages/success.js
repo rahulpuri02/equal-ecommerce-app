@@ -3,12 +3,36 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import React from 'react'
+import { useState } from 'react';
+import { useEffect } from 'react';
 import {FiCheck} from "react-icons/fi";
+import { useMediaQuery } from 'react-responsive';
+import Button from "../components/Button";
+import {BiShoppingBag} from "react-icons/bi";
+import {MdKeyboardArrowUp, MdKeyboardArrowDown} from "react-icons/md"
+import { fetchOrderItems } from '../utils/fetchOrderItems';
 
-function success() {
+
+function success({products}) {
+    console.log(products);
     let session = false;
     const router = useRouter();
     const {session_id} = router.query;
+    const [mounted, setMounted] = useState(false);
+    const [showOrderSummary, setShowOrderSummary] = useState(false);
+
+    //showOrderSummary only true for desktop but only conditionally true on mobile
+    const isTabletOrMobile = useMediaQuery({query: "(max-width: 1024px)"});
+    const showOrderSummaryCondition = isTabletOrMobile ? showOrderSummary : true;
+
+    useEffect(() => {
+        setMounted(true);
+    }, [])
+
+    const handleShowOrderSummary = () => {
+        setShowOrderSummary(!showOrderSummary);
+    }
+
   return (
     <div>
       <Head>
@@ -69,7 +93,7 @@ function success() {
                 Other tracking number:
               </p>
               <p>AM19091002</p>
-            </div>
+              </div>
           </div>
 
           <div className="my-4 mx-4 space-y-2 rounded-md border border-gray-300 p-4 lg:ml-14">
@@ -80,9 +104,49 @@ function success() {
           </div>
           <div className="mx-4 flex flex-col items-center justify-between text-sm lg:ml-14 lg:flex-row">
             <p className="hidden lg:inline">Need help? Contact us</p>
+            {mounted && (
+              <Button
+                title="Continue Shopping"
+                onClick={() => router.push("/")}
+                width={isTabletOrMobile ? "w-full" : undefined}
+                padding="py-4"
+              />
+            )}
           </div>
         </section>
 
+        {mounted && (
+          <section className="overflow-y-scroll border-y border-l border-gray-300 bg-[#FAFAFA] lg:order-2 lg:col-span-4 lg:h-screen lg:border-y-0">
+            <div
+              className={`w-full ${
+                showOrderSummaryCondition && "border-b"
+              } border-gray-300 text-sm lg:hidden`}
+            >
+              <div className="mx-auto flex max-w-xl items-center justify-between px-4 py-6">
+                <button
+                  onClick={handleShowOrderSummary}
+                  className="flex items-center space-x-2"
+                >
+                  <BiShoppingBag className="h-6 w-6" />
+                  <p>Show order summary</p>
+                  {showOrderSummaryCondition ? (
+                    <MdKeyboardArrowUp className="h-4 w-4" />
+                  ) : (
+                    <MdKeyboardArrowDown className="h-4 w-4" />
+                  )}
+                </button>
+
+                <p className='text-xl font-medium text-black'> </p>
+                    </div>
+                </div>
+
+                {showOrderSummaryCondition && (
+                    <div>
+                        <div></div>
+                    </div>
+                )}
+            </section>
+        )}
         
       </main>
     </div>
@@ -90,3 +154,16 @@ function success() {
 }
 
 export default success
+
+
+{/* Server Side Rendering   */}
+
+export const getServerSideProps =  async ({query}) => {
+    const sessionId = query.session_id
+    const products = await fetchOrderItems(sessionId)
+   return {
+    props: {
+     products,
+    },
+   }
+}
