@@ -36,9 +36,8 @@ export const selectCartItems = (state) => state.cart.items;
 export const selectCartItemsWithId = (state, id) => {
   state.cart.items.filter((item) => item_id === id);
 };
-export const selectCartTotal = (state) => {
-  state.basket.items.reduce((total , item) => (total += item.price), 0);
-}
+export const selectCartTotal = (state) => state.cart.items.reduce((total , item) => (total += item.price), 0);
+
 
 
 export default cartSlice.reducer;
