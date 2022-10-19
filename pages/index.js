@@ -1,13 +1,12 @@
-
 import { Tab } from '@headlessui/react'
 import Head from 'next/head'
 import React from 'react'
 import Header from '../components/Header'
 import LandingPage from '../components/LandingPage'
 import Product from '../components/Product'
-import { fetchCategories } from "../utils/fetchCategories";
-import { fetchProducts } from "../utils/fetchProducts";
 import Cart from '../components/Cart';
+import { fetchCategories } from '../utils/fetchCategories'
+import { fetchProducts } from '../utils/fetchProducts'
 
 const Home = ({categories, products}) => {
   ///console.log(categories)

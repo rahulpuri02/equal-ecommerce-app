@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/Product.js", "pages/index.js", "pages/checkout.js"  ],
+, "components/Product.js", "pages/index.js", "pages/checkout.js", "pages/api/checkout_sessions.ts", "pages/api/getCategories.js", "pages/api/getProducts.js", "utils/fetchProducts.js", "utils/fetchCategories.js", "utils/api-helpers.js", "utils/get-stripejs.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,4 +1,4 @@
-export async function fetchPostJSON(url: string, data?: {}) {
+export async function fetchPostJSON(url, data) {
   try {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -16,8 +16,8 @@ export async function fetchPostJSON(url: string, data?: {}) {
     });
     return await response.json(); // parses JSON response into native JavaScript objects
   } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
+    if (err) {
+      throw (err.message);
     }
     throw err;
   }

@@ -12,6 +12,7 @@ import {HiOutlineChevronDown} from "react-icons/hi";
 import getStripe from "../utils/get-stripejs";
 import { fetchPostJSON } from "../utils/api-helpers";
 
+
 function Checkout() {
   const items = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
@@ -29,42 +30,35 @@ function Checkout() {
   },[items]);
 
 
-
+  
    {/*Stripe Part */}
 
    const [loading, setLoading] = useState(false);
-
+   
    const createCheckoutSession = async () => {
-    setLoading(true);
+    setLoading(true)
+                                               //api route
+    const checkoutSession = await fetchPostJSON("/api/checkout_sessions", {
+      //data we passed
+      items: items,
+    });
+    
+    // if there is internal server error 500 is internal server error code
 
-    const checkoutSession= await fetchPostJSON(
-      "/api/checkout_sessions",
-      {
-        items: items,
-      }
-    );
-
-    // Internal Server Error
-    if ((checkoutSession).statusCode === 500) {
-      console.error((checkoutSession).message);
-      return;
+    if ((checkoutSession).statusCode === 500){
+    console.error((checkoutSession).message);
+    return null;
     }
-
-    // Redirect to checkout
+    //Redirect to checkout
     const stripe = await getStripe();
-    const { error } = await stripe?.redirectToCheckout({
-      // Make the id field from the Checkout Session creation API response
-      // available to this file, so you can provide it as parameter here
-      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+    const {error} = await stripe?.redirectToCheckout({
       sessionId: checkoutSession.id,
     });
 
-    // If `redirectToCheckout` fails due to a browser or network
-    // error, display the localized error message to your customer
-    // using `error.message`.
+    //if redirectToCheckout fails due to browser or internet error
     console.warn(error.message);
-
-    setLoading(false);
+   
+   setLoading(false);
   };
   return (
     <div className='min-h-screen overflow-hidden bg-[#e7ecee]'>

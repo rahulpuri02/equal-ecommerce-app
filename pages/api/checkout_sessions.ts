@@ -28,12 +28,9 @@ export default async function handler(
     }));
 
     try {
-      // Create Checkout Sessions from body params
+      // Create Checkout for our products
       const params: Stripe.Checkout.SessionCreateParams = {
         payment_method_types: ["card"],
-        // shipping_address_collection: {
-        //   allowed_countries: ["US", "CA", "GB"],
-        // },
         line_items: transformedItems,
         payment_intent_data: {},
         mode: "payment",
@@ -43,6 +40,7 @@ export default async function handler(
           images: JSON.stringify(items.map((item) => item.image[0].asset.url)),
         },
       };
+      //create checkout payment page for successful user
       const checkoutSession: Stripe.Checkout.Session =
         await stripe.checkout.sessions.create(params);
 
