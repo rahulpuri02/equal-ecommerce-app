@@ -7,6 +7,7 @@ import Product from '../components/Product'
 import Cart from '../components/Cart';
 import { fetchCategories } from '../utils/fetchCategories'
 import { fetchProducts } from '../utils/fetchProducts'
+import { getSession } from "next-auth/react";
 
 const Home = ({categories, products}) => {
   ///console.log(categories)
@@ -74,14 +75,16 @@ export default Home;
 
   {/* Server Side Rendering starts from here */}
 
-  export const getServerSideProps = async () => {
+  export const getServerSideProps = async (context) => {
   //fetch the data from sanity
  const categories = await fetchCategories();
  const products = await fetchProducts();
+ const session = await getSession(context);
     return {
       props: {
         categories,
         products,
+        session,
       },
     };
   };

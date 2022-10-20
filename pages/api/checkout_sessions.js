@@ -1,18 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import Stripe from "stripe";
+
+
 import { urlFor } from "../../sanity";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  // https://github.com/stripe/stripe-node#configuration
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+ 
   apiVersion: "2022-08-01",
 });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req,res) {
   if (req.method === "POST") {
-    const items: Product[] = req.body.items;
+    const items= req.body.items;
 
     // This is the shape in which stripe expects the data to be
     const transformedItems = items.map((item) => ({
@@ -29,7 +26,7 @@ export default async function handler(
 
     try {
       // Create Checkout for our products
-      const params: Stripe.Checkout.SessionCreateParams = {
+      const params = {
         payment_method_types: ["card"],
         line_items: transformedItems,
         payment_intent_data: {},
@@ -41,13 +38,13 @@ export default async function handler(
         },
       };
       //create checkout payment page for successful user
-      const checkoutSession: Stripe.Checkout.Session =
+      const checkoutSession =
         await stripe.checkout.sessions.create(params);
 
       res.status(200).json(checkoutSession);
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : "Internal server error";
+        err  ? err.message : "Internal server error";
       res.status(500).json({ statusCode: 500, message: errorMessage });
     }
   } else {

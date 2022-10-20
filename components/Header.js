@@ -6,9 +6,11 @@ import {BiSearchAlt2, BiShoppingBag} from 'react-icons/bi';
 import {HiOutlineUser} from 'react-icons/hi'
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../redux/cartSlice";
+import { signIn, signOut, useSession} from "next-auth/react";
 
 function Header() {
-  let session = false;
+  const {data: session} = useSession();
+
   const items = useSelector(selectCartItems);
   return (
     <header className="sticky top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-4">
@@ -34,7 +36,7 @@ function Header() {
       <BiSearchAlt2 className='headerIcon'/>
       <Link href='/checkout'>
       <div className='relative cursor-pointer'>
-        {items.length > 0 &&
+      {items.length > 0 &&
       (<span className='absolute -right-1 -top-1 z-20 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[11px] text-white'>
         {items.length}
       </span>)}
@@ -43,13 +45,17 @@ function Header() {
       </Link>
       {session ? (
         <img src={
-          // session.user?.image
-          "https://www.gravator.com/avatar/000000000000000?d=mp&f=y"
+        session.user?.image ||
+        "https://res.cloudinary.com/dzj8cmkhl/image/upload/v1666225703/Sidhu-Moose-Wala-2_zvkwko.jpg"
         }
         alt="user-logo"
+        className="cursor-pointer rounded-full"
+        width={28}
+        height={28}
+        onClick={() => signOut()}
         />
       ) : (
-        <HiOutlineUser className='headerIcon'/>
+        <HiOutlineUser onClick={() => signIn()} className='headerIcon'/>
       )}
     </div> 
     </header>

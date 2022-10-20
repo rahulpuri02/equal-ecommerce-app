@@ -12,15 +12,15 @@ import {BiShoppingBag} from "react-icons/bi";
 import {MdKeyboardArrowUp, MdKeyboardArrowDown} from "react-icons/md"
 import { fetchOrderItems } from '../utils/fetchOrderItems';
 import Currency from "react-currency-formatter"; 
-import OrderProduct from '../components/OrderProduct';
+import { useSession} from "next-auth/react";
 
 
 
   
   function Success({ products }) {
-    console.log(products);
+   //console.log(products);
   
-    let session = false;
+    const {data: session} = useSession();
 
     const router = useRouter();
 
