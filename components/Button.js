@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 const Button = ({title,loading,width,padding,onClick,noIcon}) => {
   return (

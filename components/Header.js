@@ -43,18 +43,20 @@ function Header() {
       <BiShoppingBag className='headerIcon' />
       </div>
       </Link>
+      
       {session ? (
-        <img src={
-        session.user?.image ||
-        "https://res.cloudinary.com/dzj8cmkhl/image/upload/v1666225703/Sidhu-Moose-Wala-2_zvkwko.jpg"
-        }
-        alt="user-logo"
-        className="cursor-pointer rounded-full"
-        width={28}
-        height={28}
-        onClick={() => signOut()}
-        />
-      ) : (
+          <Image
+            src={
+              session.user?.image ||
+              "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+            }
+            alt=""
+            className="cursor-pointer rounded-full"
+            width={28}
+            height={28}
+            onClick={() => signOut()}
+          />
+        ) : (
         <HiOutlineUser onClick={() => signIn()} className='headerIcon'/>
       )}
     </div> 
