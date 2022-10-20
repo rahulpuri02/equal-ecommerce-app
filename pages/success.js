@@ -88,7 +88,7 @@ import { useSession} from "next-auth/react";
                   Order #{session_id?.slice(-6)}
                 </p>
                 <h4 className="text-lg">
-                  Thank You {" "}
+                 Thank You {" "}
                   {session ? session.user?.name?.split(" ")[0] : "Guest"}
                 </h4>
               </div>
@@ -151,7 +151,7 @@ import { useSession} from "next-auth/react";
                   </button>
   
                   <p className="text-xl font-medium text-black">
-                    <Currency quantity={subtotal + 20} />
+                    <Currency quantity={subtotal} />
                   </p>
                 </div>
               </div>
@@ -225,6 +225,7 @@ import { useSession} from "next-auth/react";
 export const getServerSideProps =  async ({query}) => {
     const sessionId = query.session_id
     const products = await fetchOrderItems(sessionId)
+   
    return {
     props: {
      products,

@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
-  //getting cartItems from local storage 
   items: [],
 };
 
@@ -24,10 +22,11 @@ const cartSlice = createSlice({
         console.log(`Cant remove product ${action.payload.id} as its not in basket`);
       }
       state.items = newCart;
-    },
-
+    }
   },
 });
+
+
 //Action creator
 export const { addToCart, removeFromCart } = cartSlice.actions;
 
